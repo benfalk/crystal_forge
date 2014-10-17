@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+    - bin/*
+    - Guardfile
+
+LineLength:
+  Max: 110
+
+Documentation:
+  Enabled: false
