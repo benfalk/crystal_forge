@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - bin/*
     - Guardfile
+    - vendor/**/*
 
 LineLength:
   Max: 110
