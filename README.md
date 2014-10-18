@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/benfalk/crystal_forge.svg?branch=master)](https://travis-ci.org/benfalk/crystal_forge)
+[![Code Climate](https://codeclimate.com/github/benfalk/crystal_forge/badges/gpa.svg)](https://codeclimate.com/github/benfalk/crystal_forge)
 
 # CrystalForge
 
