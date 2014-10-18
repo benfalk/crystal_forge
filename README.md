@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/benfalk/pcrystal_forge.svg?branch=master)](https://travis-ci.org/benfalk/crystal_forge)
+
 # CrystalForge
 
 TODO: Write a gem description
