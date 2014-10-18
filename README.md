@@ -2,6 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/benfalk/crystal_forge/badges/gpa.svg)](https://codeclimate.com/github/benfalk/crystal_forge)
 [![Dependency Status](https://gemnasium.com/benfalk/crystal_forge.svg)](https://gemnasium.com/benfalk/crystal_forge)
 [![Coverage Status](https://coveralls.io/repos/benfalk/crystal_forge/badge.png)](https://coveralls.io/r/benfalk/crystal_forge)
+[![Inline docs](http://inch-ci.org/github/benfalk/crystal_forge.svg?branch=master)](http://inch-ci.org/github/benfalk/crystal_forge)
 
 # CrystalForge
 
