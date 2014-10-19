@@ -8,3 +8,10 @@ Scenario: Using Dash V
   """
   crystalforge version 0.0.1
   """
+
+Scenario: Using "--version"
+  When I run `crystalforge --version`
+  Then it should pass with:
+  """
+  crystalforge version 0.0.1
+  """
