@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'gli'
+require 'crystal_forge'
+
+include GLI::App
+
+version CrystalForge::VERSION
+
+exit run(ARGV)
