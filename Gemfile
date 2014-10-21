@@ -8,3 +8,4 @@ gem 'guard', require: false
 gem 'guard-rubocop', require: false
 gem 'guard-rspec', require: false
 gem 'coveralls', require: false
+gem 'pry'
