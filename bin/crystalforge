@@ -3,7 +3,13 @@ require 'gli'
 require 'crystal_forge'
 
 include GLI::App
-
 version CrystalForge::VERSION
+
+command :routes do |c|
+  c.action do |global_opts, opts, args|
+    blueprint = args.map { |file| File.read(file) }.join("\n")
+    puts CrystalForge::RoutingTable.new(blueprint).pretty_format
+  end
+end
 
 exit run(ARGV)

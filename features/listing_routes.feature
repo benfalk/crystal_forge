@@ -4,7 +4,7 @@ Feature: Listing Matches
 
 @wip
 Scenario: Parsing Urls
-  When I run `crystalforge matches apib_files/hello_world.apib`
+  When I run `crystalforge routes ../../apib_files/hello_world.apib`
   Then it should pass with:
   """
      GET /messages/{id}
