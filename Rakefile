@@ -5,6 +5,8 @@ require 'rubocop/rake_task'
 
 RuboCop::RakeTask.new
 RSpec::Core::RakeTask.new(:spec)
-Cucumber::Rake::Task.new
+Cucumber::Rake::Task.new do |t|
+  t.cucumber_opts = '--tags ~@wip'
+end
 
 task default: [:spec, :cucumber, :rubocop]
