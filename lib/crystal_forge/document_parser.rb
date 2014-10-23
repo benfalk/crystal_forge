@@ -1,4 +1,5 @@
 require 'redsnow'
+require 'crystal_forge/document_parser/resource'
 
 module CrystalForge
   ##
@@ -10,9 +11,13 @@ module CrystalForge
       @ast = RedSnow.parse(apib).ast
     end
 
+    def resources
+      ast_resources.map { |r| Resource.new(r) }
+    end
+
     private
 
-    def resources
+    def ast_resources
       ast.resource_groups.map(&:resources).flatten
     end
 
