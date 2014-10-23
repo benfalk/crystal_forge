@@ -8,9 +8,9 @@ module CrystalForge
     # described in an API document.  A resource is confined to
     # only one web uri template but may have multiple routes
     class Resource
-      def initialize(raw_resource, route_class: SimpleRoute)
+      def initialize(raw_resource, opts = {})
         @raw = raw_resource
-        @route_class = route_class
+        @route_class = opts.fetch(:route_class) { SimpleRoute }
       end
 
       ##
