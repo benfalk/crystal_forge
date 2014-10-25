@@ -5,10 +5,19 @@ require 'crystal_forge'
 include GLI::App
 version CrystalForge::VERSION
 
+desc 'Displays matching routes found in the api file(s)'
 command :routes do |c|
   c.action do |global_opts, opts, args|
     blueprint = args.map { |file| File.read(file) }.join("\n")
     puts CrystalForge::RoutingTable.new(blueprint).pretty_format
+  end
+end
+
+desc 'Runs a webserver that handles requests from the api file(s)'
+command :server do |c|
+  c.action do |global_opts, opts, args|
+    blueprint = args.map { |file| File.read(file) }.join("\n")
+    CrystalForge::WebServer.new(blueprint).start!
   end
 end
 
