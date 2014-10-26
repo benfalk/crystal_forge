@@ -7,7 +7,10 @@ describe CrystalForge::WebServer do
     let(:instance) { described_class.new(example_apib) }
 
     describe '#start!' do
-      it 'starts listening for web requests'
+      it 'starts listening for web requests' do
+        expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 8080)
+        instance.start!
+      end
     end
   end
 end

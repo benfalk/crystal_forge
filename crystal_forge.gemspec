@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
   spec.add_dependency 'redsnow', '~> 0.2'
-  spec.add_dependency 'sinatra'
+  spec.add_dependency 'rack', '~> 1.5'
   spec.add_dependency 'gli'
 
   spec.add_development_dependency 'bundler', '~> 1.7.0'
@@ -26,6 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-its'
   spec.add_development_dependency 'cucumber'
-  spec.add_development_dependency 'capybara'
+  spec.add_development_dependency 'faraday'
   spec.add_development_dependency 'aruba'
 end
