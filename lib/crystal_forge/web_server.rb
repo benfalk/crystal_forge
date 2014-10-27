@@ -5,12 +5,31 @@ module CrystalForge
   # Initialized with an api document and attempts to
   # handle web requests to serve the examples described,
   # following the example routes, headers, responses, etc
-  class WebServer < DocumentParser
+  class WebServer < RoutingTable
     # == Overview
     # Starts the webserver and begins listening for http
     # requests on port 8080
     def start!
       Rack::Handler::WEBrick.run self, Port: 8080
+    end
+
+    # == Overview
+    # Returns a valid rack formatted response when given
+    # a Rack environment.  In the event no route matches
+    # an environment request it will return a `nomatch_response`
+    def call(env)
+      route = routes.find { |r| r.matches? env }
+      if route
+        route.response
+      else
+        nomatch_response
+      end
+    end
+
+    # == Overview
+    # The rack response to send when no match is found
+    def nomatch_response
+      ['404', {}, ['']]
     end
   end
 end
