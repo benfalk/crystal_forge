@@ -1,6 +1,16 @@
 module CrystalForge
   class DocumentParser
-    SimpleRoute = Struct.new(:uri_template, :method)
+    # == Overview
+    # Simple wrapper for an action found on a resource
+    #
+    # == Methods
+    # * resource : the raw resource from RedSnow
+    # * method : the http verb to match this route
+    # * uri_template : the http uri pattern to map to
+    SimpleRoute = Struct.new(:resource, :method) do
+      extend Forwardable
+      def_delegators :resource, :uri_template
+    end
 
     ##
     # = Document Resource
@@ -20,7 +30,7 @@ module CrystalForge
       # SimpleRoute
       def routes
         raw.actions.map do |raw_action|
-          route_class.new(raw.uri_template, raw_action.method)
+          route_class.new(raw, raw_action.method)
         end
       end
 
