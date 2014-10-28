@@ -31,5 +31,11 @@ module CrystalForge
     def nomatch_response
       ['404', {}, ['']]
     end
+
+    private
+
+    def after_initialize
+      resource_opts.merge! route_class: Route if resource_opts[:route_class].nil?
+    end
   end
 end

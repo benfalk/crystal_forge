@@ -9,27 +9,31 @@ module CrystalForge
   class DocumentParser
     # == Parameters
     # * apib : an api blueprint string
-    # * parser_opts : hash of options for the parser
-    #   * :resource : Resource#initialize hash of options, defaults
-    #     to an empty hash
-    def initialize(apib, parser_opts = {})
+    def initialize(apib)
       @ast = RedSnow.parse(apib).ast
-      @resource_opts = parser_opts.fetch(:resource) { Hash.new }
+      @resource_opts = {}
+      after_initialize
     end
 
     # == Overview
     # Array of resources generated with the resource options
     # initialized by the DocumentParser
     def resources
-      ast_resources.map { |r| Resource.new(r, @resource_opts) }
+      ast_resources.map { |r| Resource.new(r, resource_opts) }
     end
 
     private
+
+    # == Overview
+    # Can be called by sub classes to extend functionality
+    # and not have to couple into calling initialize
+    def after_initialize
+    end
 
     def ast_resources
       ast.resource_groups.map(&:resources).flatten
     end
 
-    attr_reader :ast
+    attr_reader :ast, :resource_opts
   end
 end
