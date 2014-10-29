@@ -1,4 +1,3 @@
-@wip
 Feature: Running as a Webserver
   CrystalForge can be run as a webserver to feature test clients against
 
