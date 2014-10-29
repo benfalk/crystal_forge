@@ -31,6 +31,7 @@ module CrystalForge
       end
 
       def proto_headers
+        return {} if proto_response.headers.collection.nil?
         proto_response.headers.collection.reduce({}) do |headers, hashy|
           headers.merge(hashy[:name] => hashy[:value])
         end

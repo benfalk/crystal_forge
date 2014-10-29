@@ -37,3 +37,11 @@ end
 Then(/^the content\-type should be "(.*?)"$/) do |content_type|
   expect(@response.env.response_headers['content-type']).to eq(content_type)
 end
+
+Then(/^the http body should be blank$/) do
+  expect(@response.body).to eq('')
+end
+
+Then(/^the content\-type should be absent$/) do
+  expect(@response.env.response_headers['content-type']).to be_nil
+end
