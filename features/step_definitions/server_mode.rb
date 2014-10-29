@@ -21,8 +21,9 @@ Given(/^I start `(.+)`$/) do |server_command|
   end
 end
 
-When(/^I get "(.*?)" from host "(.*?)"$/) do |uri, host|
-  @response = Faraday.new(url: host).get(uri)
+When(/^I (GET|DELETE) "(.*?)" from host "(.*?)"$/) do |method, uri, host|
+  method = method.downcase.to_sym
+  @response = Faraday.new(url: host).send(method, uri)
 end
 
 Then(/^the http body should include "(.*?)"$/) do |body_content|
