@@ -31,9 +31,9 @@ module CrystalForge
       end
 
       def proto_headers
-        proto_response.headers.collection.map do |hashy|
-          [hashy[:name], hashy[:value]]
-        end.to_h
+        proto_response.headers.collection.reduce({}) do |headers, hashy|
+          headers.merge(hashy[:name] => hashy[:value])
+        end
       end
     end
   end
