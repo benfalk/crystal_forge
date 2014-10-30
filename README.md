@@ -4,7 +4,13 @@
 [![Coverage Status](https://coveralls.io/repos/benfalk/crystal_forge/badge.png)](https://coveralls.io/r/benfalk/crystal_forge)
 [![Inline docs](http://inch-ci.org/github/benfalk/crystal_forge.svg?branch=master)](http://inch-ci.org/github/benfalk/crystal_forge)
 
-# CrystalForge
+<p align="center">
+  <img
+    src="https://raw.github.com/benfalk/crystal_forge/master/logo/crystal-forge-horizontal.png"
+    alt="CrystalForge Logo"/>
+</p>
+
+-------------------------------------------------------------------------------
 
 TODO: Write a gem description
 
