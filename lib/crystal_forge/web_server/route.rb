@@ -1,4 +1,4 @@
-require 'uri_template'
+require 'addressable/template'
 
 module CrystalForge
   class WebServer
@@ -19,7 +19,7 @@ module CrystalForge
       end
 
       def tpl
-        URITemplate.new(uri_template)
+        Addressable::Template.new(uri_template)
       end
 
       def action
