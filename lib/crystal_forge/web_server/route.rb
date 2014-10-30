@@ -5,7 +5,7 @@ module CrystalForge
     class Route < DocumentParser::SimpleRoute
       def matches?(env)
         env['REQUEST_METHOD'].downcase == method.downcase &&
-        path_matches?(env['PATH_INFO'])
+          path_matches?(env['PATH_INFO'])
       end
 
       def rack_response
