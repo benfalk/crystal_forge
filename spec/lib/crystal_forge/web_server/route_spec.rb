@@ -39,18 +39,18 @@ module CrystalForge
       end
     end
 
-    describe '#response' do
-      subject { instance.response }
+    describe '#rack_response' do
+      subject { instance.rack_response }
       it { is_expected.to be_a(Array) }
       its(:size) { is_expected.to be(3) }
 
       describe 'the first element' do
-        subject { instance.response.first }
+        subject { instance.rack_response.first }
         it { is_expected.to eq('200') }
       end
 
       describe 'the second element' do
-        subject { instance.response[1] }
+        subject { instance.rack_response[1] }
         it { is_expected.to be_a(Hash) }
         its(:keys) { is_expected.to include('Content-Type') }
       end

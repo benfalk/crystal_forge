@@ -10,6 +10,12 @@ module CrystalForge
     SimpleRoute = Struct.new(:resource, :method) do
       extend Forwardable
       def_delegators :resource, :uri_template
+
+      private
+
+      def action
+        resource.actions.find { |a| a.method == method }
+      end
     end
 
     ##

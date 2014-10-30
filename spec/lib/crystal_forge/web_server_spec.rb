@@ -14,7 +14,7 @@ describe CrystalForge::WebServer do
     end
 
     describe '#call' do
-      let(:matched_action) { double(:match, matches?: true, response: valid_response) }
+      let(:matched_action) { double(:match, matches?: true, rack_response: valid_response) }
       let(:unmatched_action) { double(:unmatched, matches?: false) }
       let(:valid_response) { [200, { 'Content-Type' => 'text/plain' }, ['Hello World']] }
       let(:matching_actions) { [matched_action] }

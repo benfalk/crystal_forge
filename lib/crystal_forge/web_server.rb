@@ -20,7 +20,7 @@ module CrystalForge
     def call(env)
       route = routes.find { |r| r.matches? env }
       if route
-        route.response
+        route.rack_response
       else
         nomatch_response
       end

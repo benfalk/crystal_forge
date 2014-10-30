@@ -8,8 +8,8 @@ module CrystalForge
         path_matches?(env['PATH_INFO'])
       end
 
-      def response
-        [proto_response.name, proto_headers, [proto_response.body]]
+      def rack_response
+        Response.new(raw_response: raw_response).to_rack_response
       end
 
       private
@@ -22,19 +22,8 @@ module CrystalForge
         Addressable::Template.new(uri_template)
       end
 
-      def action
-        resource.actions.find { |a| a.method == method }
-      end
-
-      def proto_response
+      def raw_response
         action.examples.first.responses.first
-      end
-
-      def proto_headers
-        return {} if proto_response.headers.collection.nil?
-        proto_response.headers.collection.reduce({}) do |headers, hashy|
-          headers.merge(hashy[:name] => hashy[:value])
-        end
       end
     end
   end
