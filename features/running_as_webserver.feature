@@ -8,9 +8,16 @@ Scenario: Placing a matching GET request
   And the http status code should be "200"
   And the content-type should be "text/plain"
 
-Scenario: Placing a matching DELET request 
+Scenario: Placing a matching DELETE request 
   Given I start `crystalforge server ../../apib_files/hello_world.apib`
   When I DELETE "/messages/motd" from host "http://127.0.0.1:8080"
   Then the http body should be blank
   And the http status code should be "204"
+  And the content-type should be absent
+
+Scenario: Placing a mis-matching GET request 
+  Given I start `crystalforge server ../../apib_files/hello_world.apib`
+  When I GET "/random/lol" from host "http://127.0.0.1:8080"
+  Then the http body should be blank
+  And the http status code should be "404"
   And the content-type should be absent
