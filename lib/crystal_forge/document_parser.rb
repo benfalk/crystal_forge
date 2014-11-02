@@ -1,5 +1,6 @@
 require 'redsnow'
 require 'crystal_forge/document_parser/resource'
+require 'crystal_forge/document_parser/ast'
 
 module CrystalForge
   ##
@@ -8,9 +9,9 @@ module CrystalForge
   # information about it
   class DocumentParser
     # == Parameters
-    # * apib : an api blueprint string
-    def initialize(apib)
-      @ast = RedSnow.parse(apib).ast
+    # * api : an api blueprint or raml string
+    def initialize(api)
+      @ast = RedSnow.parse(api).ast
       @resource_opts = {}
       after_initialize
     end
