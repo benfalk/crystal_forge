@@ -21,3 +21,10 @@ Scenario: Placing a mis-matching GET request
   Then the http body should be blank
   And the http status code should be "404"
   And the content-type should be absent
+
+Scenario: Placing a mis-matching but close GET request 
+  Given I start `crystalforge server ../../apib_files/hello_world.apib`
+  When I GET "/widgets/dink/it" from host "http://127.0.0.1:8080"
+  Then the http body should be blank
+  And the http status code should be "404"
+  And the content-type should be absent
