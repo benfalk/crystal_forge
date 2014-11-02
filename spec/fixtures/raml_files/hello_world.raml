@@ -1,0 +1,21 @@
+#%RAML 0.8
+
+title: Hello World API
+baseUri: http://example.api.com/{version}
+version: v1
+/messages:
+  /{id}:
+    get:
+      description: |
+        Retrieve a message by its *id*.
+      responses:
+        200:
+          body:
+            text/plain:
+              example: |
+                Hello World!
+    delete:
+      description: |
+        This method will *delete* an **individual song**
+      responses:
+        204:
