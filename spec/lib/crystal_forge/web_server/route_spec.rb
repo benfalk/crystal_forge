@@ -3,7 +3,7 @@ require 'spec_helper'
 module CrystalForge
   describe WebServer::Route do
     let(:example_apib) { File.read(HELLO_WORLD_APIB) }
-    let(:raw_resource) { DocumentParser.new(example_apib).send(:ast_resources).first }
+    let(:raw_resource) { DocumentParser::AST.parse(example_apib).resources.first }
     let(:http_method)  { 'GET' }
     let(:path)         { '/messages/motd' }
     let(:instance)     { described_class.new(raw_resource, http_method) }

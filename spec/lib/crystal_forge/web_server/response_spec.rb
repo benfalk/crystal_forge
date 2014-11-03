@@ -4,8 +4,7 @@ describe CrystalForge::WebServer::Response do
   let(:example_apib) { File.read(HELLO_WORLD_APIB) }
   let(:instance)     { described_class.new(raw_response: raw_response) }
   let(:raw_response) do
-    CrystalForge::DocumentParser.new(example_apib)
-      .send(:ast_resources)
+    CrystalForge::DocumentParser::AST.parse(example_apib).resources
       .first
       .actions.first
       .examples.first

@@ -1,5 +1,5 @@
-require 'redsnow'
 require 'crystal_forge/document_parser/resource'
+require 'crystal_forge/document_parser/ast'
 
 module CrystalForge
   ##
@@ -8,9 +8,9 @@ module CrystalForge
   # information about it
   class DocumentParser
     # == Parameters
-    # * apib : an api blueprint string
-    def initialize(apib)
-      @ast = RedSnow.parse(apib).ast
+    # * api : an api blueprint or raml string
+    def initialize(api)
+      @ast = AST.parse(api)
       @resource_opts = {}
       after_initialize
     end
@@ -19,7 +19,7 @@ module CrystalForge
     # Array of resources generated with the resource options
     # initialized by the DocumentParser
     def resources
-      ast_resources.map { |r| Resource.new(r, resource_opts) }
+      ast.resources.map { |r| Resource.new(r, resource_opts) }
     end
 
     private
@@ -28,10 +28,6 @@ module CrystalForge
     # Can be called by sub classes to extend functionality
     # and not have to couple into calling initialize
     def after_initialize
-    end
-
-    def ast_resources
-      ast.resource_groups.map(&:resources).flatten
     end
 
     attr_reader :ast, :resource_opts

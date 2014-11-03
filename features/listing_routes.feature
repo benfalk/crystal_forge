@@ -3,7 +3,16 @@ Feature: Listing Matches
   Blueprint file(s).
 
 Scenario: Parsing Urls
-  When I run `crystalforge routes ../../apib_files/hello_world.apib`
+  When I run `crystalforge routes ../../spec/fixtures/apib_files/hello_world.apib`
+  Then it should pass with:
+  """
+     GET /messages/{id}
+  DELETE /messages/{id}
+  """
+
+@wip
+Scenario: Parsing Urls
+  When I run `crystalforge routes ../../spec/fixtures/raml_files/hello_world.raml`
   Then it should pass with:
   """
      GET /messages/{id}
