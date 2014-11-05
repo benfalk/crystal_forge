@@ -14,8 +14,31 @@ describe CrystalForge::Formats::RAML do
   end
 
   describe 'initalized with a valid document' do
-    # TODO: raml-rb needs to support `example:`
-    # subject { described_class.new(example_raml) }
-    # its(:resources) { is_expected.to be_kind_of(Array) }
+    let(:instance) { described_class.new(example_raml) }
+    subject { instance }
+    its(:resources) { is_expected.to be_kind_of(Enumerable) }
+    its('resources.count') { is_expected.to eq(1) }
+
+    context 'The only resource' do
+      subject { instance.resources.first }
+      its('actions.count') { is_expected.to eq(2) }
+    end
+  end
+
+  describe CrystalForge::Formats::RAML::RawResource do
+    let(:raw_node) { Raml::Parser.parse(example_raml).resources.first.resources.first }
+    let(:instance) { described_class.new(raw_node) }
+
+    describe '#actions' do
+      subject { instance.actions.map(&:method) }
+      it { is_expected.to be_kind_of(Enumerable) }
+      it { is_expected.to include 'GET' }
+      it { is_expected.to include 'DELETE' }
+    end
+
+    describe '#uri_template' do
+      subject { instance.uri_template }
+      it { is_expected.to eq '/messages/{id}' }
+    end
   end
 end

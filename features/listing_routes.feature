@@ -10,7 +10,6 @@ Scenario: Parsing Urls
   DELETE /messages/{id}
   """
 
-@wip
 Scenario: Parsing Urls
   When I run `crystalforge routes ../../spec/fixtures/raml_files/hello_world.raml`
   Then it should pass with:
