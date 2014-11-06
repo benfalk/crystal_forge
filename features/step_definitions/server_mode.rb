@@ -12,7 +12,12 @@ Given(/^I start `(.+)`$/) do |server_command|
   Dir.chdir "#{@root}/tmp/aruba" do
     command = "#{@root.join('bin')}/#{server_command}"
     @stdin, @stdout, @stderr, @wait_thr = Open3.popen3(command)
-    sleep 2 # so the daemon has a chance to boot
+    Timeout.timeout(8) do
+      loop do
+        line = @stderr.gets
+        break if line =~ /start/
+      end
+    end
   end
   unless @wait_thr.alive?
     warn "STDERR: #{@stderr.read}"
