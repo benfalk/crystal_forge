@@ -14,12 +14,12 @@ module CrystalForge
       end
 
       def resources
-        non_empty_resources(@raml).map { |r| RawResource.new(r) }
+        non_empty_resources.map { |r| RawResource.new(r) }
       end
 
       private
 
-      def non_empty_resources(resource)
+      def non_empty_resources(resource = @raml)
         resource.resources.reduce([]) do |resources, r|
           resources << r if r.methods.any?
           resources.concat non_empty_resources(r)
