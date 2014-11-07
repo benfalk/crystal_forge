@@ -33,7 +33,7 @@ module CrystalForge
         end
 
         def actions
-          node.methods
+          node.methods.map { |method| RawAction.new(method) }
         end
 
         def uri_template
@@ -53,6 +53,65 @@ module CrystalForge
         end
 
         attr_reader :node
+      end
+
+      class RawAction
+        def initialize(action)
+          @action = action
+        end
+
+        def examples
+          action.responses.map { |response| RawExample.new(response) }
+        end
+
+        def method
+          action.method.upcase
+        end
+
+        private
+
+        attr_reader :action
+      end
+
+      class RawExample
+        def initialize(response)
+          @response = response
+        end
+
+        def responses
+          response.bodies.map { |body| RawResponse.new(body, response) }
+        end
+
+        private
+
+        attr_reader :response
+      end
+
+      class RawResponse
+        def initialize(raw_body, response)
+          @raw_body = raw_body
+          @response = response
+        end
+
+        def name
+          response.code.to_s
+        end
+
+        def body
+          raw_body.example
+        end
+
+        def headers
+          self
+        end
+
+        def collection
+          [{ name: 'Content-Type', value: raw_body.content_type }]
+        end
+
+        private
+
+        attr_reader :raw_body, :response
       end
     end
   end
