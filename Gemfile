@@ -9,3 +9,5 @@ gem 'guard-rubocop', require: false
 gem 'guard-rspec', require: false
 gem 'coveralls', require: false
 gem 'pry'
+
+gem 'yardstick', git: 'https://github.com/dkubb/yardstick.git'
