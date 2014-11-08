@@ -68,5 +68,12 @@ describe CrystalForge::Formats::RAML do
     its(:name) { is_expected.to eq '200' }
     its(:body) { is_expected.to include 'Hello World!' }
     its('headers.collection') { is_expected.to be_kind_of Enumerable }
+
+    context 'with a blank raw_body' do
+      let(:raw_body) { nil }
+      its(:name) { is_expected.to eq '200' }
+      its('headers.collection') { is_expected.to eq([]) }
+      its(:body) { is_expected.to eq '' }
+    end
   end
 end

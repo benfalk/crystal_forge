@@ -79,6 +79,7 @@ module CrystalForge
         end
 
         def responses
+          return [RawResponse.new(nil, response)] if response.bodies.empty?
           response.bodies.map { |body| RawResponse.new(body, response) }
         end
 
@@ -98,6 +99,7 @@ module CrystalForge
         end
 
         def body
+          return '' if raw_body.nil?
           raw_body.example
         end
 
@@ -106,6 +108,7 @@ module CrystalForge
         end
 
         def collection
+          return [] if raw_body.nil?
           [{ name: 'Content-Type', value: raw_body.content_type }]
         end
 
