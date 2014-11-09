@@ -23,7 +23,7 @@ rules:
     enabled: true
     exclude: []
   Summary::Length:
-    enabled: true
+    enabled: false
     exclude: []
   Summary::Delimiter:
     enabled: true
