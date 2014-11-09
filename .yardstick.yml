@@ -1,5 +1,5 @@
 ---
-threshold: 75
+threshold: 79
 rules:
   ApiTag::Presence:
     enabled: false
