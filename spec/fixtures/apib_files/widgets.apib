@@ -1,0 +1,70 @@
+# Widgets API
+The best widget api you could ever find.
+
+# Widget [/widgets{?page}]
+The widgets main resource tree
+
+## Widget [GET]
+Get a list of widgets
+
++ Parameters
+    + page=`1` (optional, number, `1`) ... The page number to show
+
++ Response 200 (application/json)
+
+    + Body
+
+        [
+          {"id": 4, "name": "Super Widget"},
+          {"id": 7, "name": "Average Widget"}
+        ]
+
+# Widget [/widgets]
+## Widget [POST]
+Create a widget
+
++ Request (application/json)
+
+    + Body
+
+        {"name": "Sillyness"}
+
++ Response 201 (application/json)
+
+    + Body
+
+        {"id": 9, "name": "Sillyness"}
+
+# Widget [/widgets/{id}]
+
++ Parameters
+    +id (required, number, `1`) ... The id of a widget
+
+## Widget [GET]
+Get a widget
+
++ Response 200 (application/json)
+
+    + Body
+
+      {"id": 23, name: "Crazy Bob"}
+
+## Widget [DELETE]
+Delete a widget
+
++ Response 204
+
+## Widget [PUT]
+Update a widget
+
++ Request (application/json)
+
+    + Body (application/json)
+
+        {"name": "Junk"}
+
++ Response 303
+
+    + Headers
+
+        Location: /widgets/5
