@@ -70,7 +70,7 @@ describe CrystalForge::Formats::RAML do
     its('headers.collection') { is_expected.to be_kind_of Enumerable }
 
     context 'with a blank raw_body' do
-      let(:raw_body) { nil }
+      let(:raw_body) { CrystalForge::Formats::RAML::RawExample::NullBody }
       its(:name) { is_expected.to eq '200' }
       its('headers.collection') { is_expected.to eq([]) }
       its(:body) { is_expected.to eq '' }

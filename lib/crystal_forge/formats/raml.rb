@@ -114,21 +114,25 @@ module CrystalForge
       # as an api blueprint example
       class RawExample
         ##
+        # Empty body to send when no bodies are found
+        NullBody = OpenStruct.new(example: '', content_type: '').freeze
+
+        ##
         # @param [Raml::Response] response
         def initialize(response)
           @response = response
+          @bodies = response.bodies.empty? ? [NullBody] : response.bodies
         end
 
         ##
         # @return [Array<RAML::RawResponse>]
         def responses
-          return [RawResponse.new(nil, response)] if response.bodies.empty?
-          response.bodies.map { |body| RawResponse.new(body, response) }
+          bodies.map { |body| RawResponse.new(body, response) }
         end
 
         private
 
-        attr_reader :response
+        attr_reader :response, :bodies
       end
 
       ##
@@ -151,7 +155,6 @@ module CrystalForge
         ##
         # @return [String] html body
         def body
-          return '' if raw_body.nil?
           raw_body.example
         end
 
@@ -167,7 +170,7 @@ module CrystalForge
         # @return [Array<Hash>] array of name, value pair hashes for
         #   html headers
         def collection
-          return [] if raw_body.nil?
+          return [] if raw_body.content_type.empty?
           [{ name: 'Content-Type', value: raw_body.content_type }]
         end
 
