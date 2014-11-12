@@ -1,4 +1,5 @@
 require 'raml-rb'
+require 'ostruct'
 
 module CrystalForge
   module Formats
@@ -115,7 +116,7 @@ module CrystalForge
       class RawExample
         ##
         # Empty body to send when no bodies are found
-        NullBody = OpenStruct.new(example: '', content_type: '').freeze
+        NullBody = ::OpenStruct.new(example: '', content_type: '').freeze
 
         ##
         # @param [Raml::Response] response
