@@ -11,6 +11,12 @@ describe CrystalForge::WebServer do
         expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 8080)
         instance.start!
       end
+
+      it 'starts listening for web requests on specified port' do
+        instance.port = 9021
+        expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 9021)
+        instance.start!
+      end
     end
 
     describe '#call' do

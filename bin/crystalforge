@@ -15,9 +15,14 @@ end
 
 desc 'Runs a webserver that handles requests from the api file(s)'
 command :server do |c|
+  c.desc 'Specify the port to listen on'
+  c.flag [:p, :port], default_value: 8080, type: Integer
+
   c.action do |global_opts, opts, args|
     blueprint = args.map { |file| File.read(file) }.join("\n")
-    CrystalForge::WebServer.new(blueprint).start!
+    webserver = CrystalForge::WebServer.new(blueprint)
+    webserver.port = opts[:port]
+    webserver.start!
   end
 end
 
