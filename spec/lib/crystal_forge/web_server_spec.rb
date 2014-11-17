@@ -17,6 +17,15 @@ describe CrystalForge::WebServer do
         expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 9021)
         instance.start!
       end
+
+      it 'will wire static calls with Rack::Static if a static dir is set' do
+        instance.static_dir = 'roflcopter'
+        expect(Rack::Static).to receive(:new)
+          .with(instance, urls: [''], root: 'roflcopter')
+          .and_return(:rack_static)
+        expect(Rack::Handler::WEBrick).to receive(:run).with(:rack_static, Port: 8080)
+        instance.start!
+      end
     end
 
     describe '#call' do

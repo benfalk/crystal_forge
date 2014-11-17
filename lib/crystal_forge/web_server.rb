@@ -7,13 +7,13 @@ module CrystalForge
   # following the example routes, headers, responses, etc
   class WebServer < RoutingTable
     # The port number to listen on when calling WebServer#start!
-    attr_accessor :port
+    attr_accessor :port, :static_dir
 
     # == Overview
     # Starts the webserver and begins listening for http
     # requests on port 8080
     def start!
-      Rack::Handler::WEBrick.run self, Port: port
+      Rack::Handler::WEBrick.run app, Port: port
     end
 
     # == Overview
@@ -37,9 +37,19 @@ module CrystalForge
 
     private
 
+    def app
+      # TODO: before this gets out of hand... please refactor
+      if static_dir
+        Rack::Static.new(self, root: static_dir, urls: [''])
+      else
+        self
+      end
+    end
+
     def after_initialize
       resource_opts.merge! route_class: Route if resource_opts[:route_class].nil?
       self.port ||= 8080
+      self.static_dir ||= nil
     end
   end
 end
