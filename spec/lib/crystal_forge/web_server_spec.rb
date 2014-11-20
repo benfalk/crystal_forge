@@ -7,23 +7,15 @@ describe CrystalForge::WebServer do
     let(:instance) { described_class.new(example_apib) }
 
     describe '#start!' do
+      before { allow(instance).to receive(:app).and_return(:app) }
       it 'starts listening for web requests' do
-        expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 8080)
+        expect(Rack::Handler::WEBrick).to receive(:run).with(:app, Port: 8080)
         instance.start!
       end
 
       it 'starts listening for web requests on specified port' do
         instance.port = 9021
-        expect(Rack::Handler::WEBrick).to receive(:run).with(instance, Port: 9021)
-        instance.start!
-      end
-
-      it 'will wire static calls with Rack::Static if a static dir is set' do
-        instance.static_dir = 'roflcopter'
-        expect(Rack::Static).to receive(:new)
-          .with(instance, urls: [''], root: 'roflcopter')
-          .and_return(:rack_static)
-        expect(Rack::Handler::WEBrick).to receive(:run).with(:rack_static, Port: 8080)
+        expect(Rack::Handler::WEBrick).to receive(:run).with(:app, Port: 9021)
         instance.start!
       end
     end

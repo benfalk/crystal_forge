@@ -38,11 +38,9 @@ module CrystalForge
     private
 
     def app
-      # TODO: before this gets out of hand... please refactor
-      if static_dir
-        Rack::Static.new(self, root: static_dir, urls: [''])
-      else
-        self
+      Rack::Builder.new.tap do |b|
+        b.use Rack::Static, root: static_dir, urls: [''] if static_dir
+        b.run self
       end
     end
 
