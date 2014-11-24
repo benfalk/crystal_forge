@@ -2,20 +2,24 @@ require 'spec_helper'
 
 describe CrystalForge::WebServer do
   let(:example_apib) { File.read(HELLO_WORLD_APIB) }
+  let(:rack_builder) do
+    double :rack_builder, use: true,
+                          run: true
+  end
 
   context 'when initialized with a blueprint' do
     let(:instance) { described_class.new(example_apib) }
 
     describe '#start!' do
-      before { allow(instance).to receive(:app).and_return(:app) }
+      before { allow(Rack::Builder).to receive(:new).and_return(rack_builder) }
       it 'starts listening for web requests' do
-        expect(Rack::Handler::WEBrick).to receive(:run).with(:app, Port: 8080)
+        expect(Rack::Handler::WEBrick).to receive(:run).with(rack_builder, Port: 8080)
         instance.start!
       end
 
       it 'starts listening for web requests on specified port' do
         instance.port = 9021
-        expect(Rack::Handler::WEBrick).to receive(:run).with(:app, Port: 9021)
+        expect(Rack::Handler::WEBrick).to receive(:run).with(rack_builder, Port: 9021)
         instance.start!
       end
     end
