@@ -1,58 +1,21 @@
-Feature: Running as a Webserver
+Feature: Running as a Webserver (Simple)
   CrystalForge can be run as a webserver to feature test clients against
 
-Scenario: Placing a matching GET request
-  Given I start `crystalforge server ../../spec/fixtures/apib_files/hello_world.apib`
-  When I GET "/messages/motd" from host "http://127.0.0.1:8080"
-  Then the http body should include "Hello World!"
-  And the http status code should be "200"
-  And the content-type should be "text/plain"
+Scenario Outline: Making Web Requests
+  Given I start `crystalforge server <apifile>`
+  When I <httpverb> <route> from host "http://127.0.0.1:8080"
+  Then the http body should <bodymatch>
+  And the http status code should be <code>
+  And the content-type should be <content-type>
 
-Scenario: Placing a matching DELETE request 
-  Given I start `crystalforge server ../../spec/fixtures/apib_files/hello_world.apib`
-  When I DELETE "/messages/motd" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "204"
-  And the content-type should be absent
+  Examples:
+    | apifile                                         | httpverb | route             | bodymatch              | code  | content-type |
+    | ../../spec/fixtures/apib_files/hello_world.apib | GET      | "/messages/motd"  | include "Hello World!" | "200" | "text/plain" |
+    | ../../spec/fixtures/apib_files/hello_world.apib | DELETE   | "/messages/motd"  | be blank               | "204" | absent       |
+    | ../../spec/fixtures/apib_files/hello_world.apib | GET      | "/random/lol"     | be blank               | "404" | absent       |
+    | ../../spec/fixtures/apib_files/hello_world.apib | GET      | "/messages/lol/5" | be blank               | "404" | absent       |
+    | ../../spec/fixtures/raml_files/hello_world.raml | GET      | "/messages/motd"  | include "Hello World!" | "200" | "text/plain" |
+    | ../../spec/fixtures/raml_files/hello_world.raml | DELETE   | "/messages/motd"  | be blank               | "204" | absent       |
+    | ../../spec/fixtures/raml_files/hello_world.raml | GET      | "/random/lol"     | be blank               | "404" | absent       |
+    | ../../spec/fixtures/raml_files/hello_world.raml | GET      | "/messages/lol/5" | be blank               | "404" | absent       |
 
-Scenario: Placing a mis-matching GET request 
-  Given I start `crystalforge server ../../spec/fixtures/apib_files/hello_world.apib`
-  When I GET "/random/lol" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "404"
-  And the content-type should be absent
-
-Scenario: Placing a mis-matching but close GET request 
-  Given I start `crystalforge server ../../spec/fixtures/apib_files/hello_world.apib`
-  When I GET "/widgets/dink/it" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "404"
-  And the content-type should be absent
-
-Scenario: Placing a matching GET request
-  Given I start `crystalforge server ../../spec/fixtures/raml_files/hello_world.raml`
-  When I GET "/messages/motd" from host "http://127.0.0.1:8080"
-  Then the http body should include "Hello World!"
-  And the http status code should be "200"
-  And the content-type should be "text/plain"
-
-Scenario: Placing a matching DELETE request 
-  Given I start `crystalforge server ../../spec/fixtures/raml_files/hello_world.raml`
-  When I DELETE "/messages/motd" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "204"
-  And the content-type should be absent
-
-Scenario: Placing a mis-matching GET request 
-  Given I start `crystalforge server ../../spec/fixtures/raml_files/hello_world.raml`
-  When I GET "/random/lol" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "404"
-  And the content-type should be absent
-
-Scenario: Placing a mis-matching but close GET request 
-  Given I start `crystalforge server ../../spec/fixtures/raml_files/hello_world.raml`
-  When I GET "/widgets/dink/it" from host "http://127.0.0.1:8080"
-  Then the http body should be blank
-  And the http status code should be "404"
-  And the content-type should be absent
